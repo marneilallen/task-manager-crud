@@ -163,3 +163,13 @@ app.delete('/api/tasks/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running smoothly on http://localhost:${PORT}`);
 });
+
+// Start Server locally if not in production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running smoothly on http://localhost:${PORT}`);
+  });
+}
+
+// Export Express app for Vercel serverless environment
+module.exports = app;
