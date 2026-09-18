@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -19,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Initialize Supabase Client
 const supabase = createClient(
@@ -31,7 +32,10 @@ const supabase = createClient(
     },
   }
 );
-
+// 2. PLACE IT HERE: Serve index.html on the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 // -----------------------------------------------------------------------------
 // API ROUTES
 // -----------------------------------------------------------------------------
