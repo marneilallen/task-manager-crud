@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager CRUD</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Task Manager</h1>
+      <p>Node.js + Express + Supabase Full-Stack Application</p>
+    </header>
+
+    <main>
+      <!-- Form Section -->
+      <section class="card">
+        <h2 id="form-title">Add New Task</h2>
+        <form id="task-form">
+          <input type="hidden" id="task-id">
+          
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" placeholder="Enter task title" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Enter task details" rows="3"></textarea>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" id="save-btn" class="btn btn-primary">Save Task</button>
+            <button type="button" id="cancel-btn" class="btn btn-secondary hidden">Cancel Edit</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Display Section -->
+      <section class="card">
+        <h2>Task List</h2>
+        <div id="loading" class="text-muted">Loading tasks...</div>
+        <div id="task-list" class="task-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
