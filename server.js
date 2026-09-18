@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -19,7 +20,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Initialize Supabase Client
 const supabase = createClient(
@@ -31,7 +32,10 @@ const supabase = createClient(
     },
   }
 );
-
+// 2. PLACE IT HERE: Serve index.html on the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 // -----------------------------------------------------------------------------
 // API ROUTES
 // -----------------------------------------------------------------------------
@@ -163,3 +167,13 @@ app.delete('/api/tasks/:id', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running smoothly on http://localhost:${PORT}`);
 });
+
+// Start Server locally if not in production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running smoothly on http://localhost:${PORT}`);
+  });
+}
+
+// Export Express app for Vercel serverless environment
+module.exports = app;
